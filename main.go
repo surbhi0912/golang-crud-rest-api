@@ -19,36 +19,18 @@ package main
 import (
 	// "encoding/json"
 
-	"chat-ecomm/controllers"
-	"chat-ecomm/database"
-	"chat-ecomm/entities"
 	"fmt"
+	"golang-crud-rest-api/controllers"
+	"golang-crud-rest-api/database"
+	"golang-crud-rest-api/entities"
 	"html/template"
 	"net/http"
 	"strconv"
-
-	"flag"
-	"log"
 
 	// "github.com/gorilla/sessions"
 
 	"github.com/gorilla/mux"
 )
-
-var addr = flag.String("addr", ":8080", "http service address")
-
-func serveHome(w http.ResponseWriter, r *http.Request) {
-	log.Println(r.URL)
-	if r.URL.Path != "/chat" {
-		http.Error(w, "Not found", http.StatusNotFound)
-		return
-	}
-	if r.Method != http.MethodGet {
-		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
-		return
-	}
-	http.ServeFile(w, r, "home.html")
-}
 
 // var (
 //     // key must be 16, 24 or 32 bytes long (AES-128, AES-192 or AES-256)
@@ -65,22 +47,6 @@ func main() {
 
 	router := mux.NewRouter().StrictSlash(true) //initialise the router
 	//strictslash when false, if the route path is "/path", accessing "/path/" will not match this route and vice versa
-
-	flag.Parse()
-	hub := newHub()
-	go hub.run()
-	// http.HandleFunc("/chat", serveHome)
-	// http.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
-	// 	serveWs(hub, w, r)
-	// })
-	// err := http.ListenAndServe(*addr, nil)
-	// if err != nil {
-	// 	log.Fatal("ListenAndServe: ", err)
-	// }
-	router.HandleFunc("/chat", serveHome)
-	router.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
-		serveWs(hub, w, r)
-	})
 
 	router.HandleFunc("/welcome", welcome)
 
@@ -107,12 +73,7 @@ func main() {
 	router.HandleFunc("/shoppingcart", controllers.ShoppingCart)
 	router.HandleFunc("/checkout", controllers.Checkout)
 
-	// http.ListenAndServe(fmt.Sprintf(":%v", AppConfig.Port), router)
-	err := http.ListenAndServe(fmt.Sprintf(":%v", AppConfig.Port), router)
-	if err != nil {
-		log.Fatal("ListenAndServe: ", err)
-	}
-
+	http.ListenAndServe(fmt.Sprintf(":%v", AppConfig.Port), router)
 }
 
 func welcome(w http.ResponseWriter, r *http.Request) {

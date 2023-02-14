@@ -2,8 +2,8 @@ package controllers
 
 import (
 	"encoding/json"
-	"chat-ecomm/database"
-	"chat-ecomm/entities"
+	"golang-crud-rest-api/database"
+	"golang-crud-rest-api/entities"
 	"log"
 	"net/http"
 	"strconv"

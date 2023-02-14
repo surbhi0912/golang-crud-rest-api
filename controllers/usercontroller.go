@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"log"
 	// "encoding/json"
-	"chat-ecomm/database"
-	"chat-ecomm/entities"
+	"golang-crud-rest-api/database"
+	"golang-crud-rest-api/entities"
 	"net/http"
 )
 
