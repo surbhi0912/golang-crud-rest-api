@@ -2,8 +2,8 @@ package controllers
 
 import (
 	"fmt"
-	"golang-crud-rest-api/database"
-	"golang-crud-rest-api/entities"
+	"chat-ecomm/database"
+	"chat-ecomm/entities"
 	"html/template"
 	"net/http"
 	"strconv"
