@@ -2,8 +2,6 @@ package entities
 
 import "gorm.io/gorm"
 
-// import "gorm.io/gorm"
-
 type OrderUser struct {
 	gorm.Model //creates ID of uint represents orderid
 	Userid     uint64
